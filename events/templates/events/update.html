@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="bg-dark text-light p-5 text-center text-sm-start">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-md-4">
+          <h2 class="align-bottom"><span class="text-warning">Event Update</span></h2>
+          <p class="lead my-3">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed suscipit leo dui, eu
+            faucibus turpis blandit vel. Nullam gravida elementum. </p>
+        </div>
+        <div class="col-md-8 d-none d-sm-block">
+          <img src="/static/image/exhibition.jpg" class="img-fluid rounded" alt="" />
+        </div>
+      </div>
+    </div>
+  </section>
+<form class="form" method="POST" enctype="multipart/form-data">
+    {{ form.hidden_tag() }}
+    {% for field, errors in form.errors.items() %}
+    <div class="alert alert-danger">
+        {{ form[field].label }}: {{ ', '.join(errors) }}
+    </div>
+    {% endfor %}
+    <section class="bg-light p-5">
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <h3>Name:</h3>
+                <div class="mb-3">
+                    {{ form.name(class="form-control") }}
+                    <!-- <input class="form-control" type="file" id="formFile"> -->
+                </div>
+            </div>
+            <div class="col-md-3 mb-3">
+                <h3>Image:</h3>
+                <div class="mb-3">
+                    {{ form.image(class="form-control") }}
+                    <!-- <input class="form-control" type="file" id="formFile"> -->
+                </div>
+            </div>
+            <div class="col-md-3 mb-3">
+                <h3>Category</h3>
+                <div class="input-group">
+                    {{form.category(class="form-select")}}
+                </div>
+            </div>
+            <div class="col-md-3 mb-3">
+                <h3>Status</h3>
+                <div class="input-group">
+                    {{form.status(class="form-select")}}
+                </div>
+            </div>
+            <div class="col-md-3 mb-3">
+                <h3>Date</h3>
+                <div class="input-group">
+                    {{ form.date(class="form-control",type="datetime-local") }}
+                </div>
+            </div>
+            <div class="col-md-1 mb-1">
+                <h3>Price</h3>
+                <div class="input-group">
+                    {{form.price(class="form-control")}}
+                </div>
+            </div>
+            <div class="col-md-1 mb-1">
+                <h3>Tickets</h3>
+                <div class="input-group">
+                    {{form.tickets(class="form-control")}}
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <h3>Description</h3>
+                <div class="form-floating">
+                    {{form.description(rows="8",class="form-control", style="height: 280px")}}
+                    <label for="floatingTextarea2">Description</label>
+                </div>
+            </div>
+            <div class="col-md-6 mb-3">
+                <h3>Contacts</h3>
+                <div class="form-floating mb-3">
+                    {{ form.email(class="form-control") }}
+                    <!-- <input type="email" class="form-control" id="floatingEmail" placeholder="Email Address"> -->
+                    <label for="floatingInput">Email address</label>
+                </div>
+                <div class="form-floating mb-3">
+                    {{ form.phone(class="form-control") }}
+                    <!-- <input type="email" class="form-control" id="floatingPhone" placeholder="Phone Number"> -->
+                    <label for="floatingPhone">Phone Number</label>
+                </div>
+                <div class="form-floating mb-3">
+                    {{ form.address(class="form-control") }}
+                    <!-- <input type="email" class="form-control" id="floatingLocation" placeholder="Location"> -->
+                    <label for="floatingLocation">Address</label>
+                </div>
+                <div class="form-floating mb-3">
+                    {{ form.website(class="form-control") }}
+                    <!-- <input type="email" class="form-control" id="floatingWebsite" placeholder="Website"> -->
+                    <label for="floatingWebsite">Website</label>
+                </div>
+
+            </div>
+        </div>
+        <div class="d-grid gap-2">
+            {{form.submit(class="btn btn-primary",value="Update")}}
+            <a class="btn btn-danger" href="/events/delete/{{id}}" type="button">Delete</a>
+        </div>
+    </section>
+</form>
+{% endblock %}

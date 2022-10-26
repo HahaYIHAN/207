@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<section class="bg-dark text-light p-5 text-center text-sm-start">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-4">
+                <h2 class="align-bottom"><span class="text-warning">Booking History</span></h2>
+                <!-- <p class="lead my-3">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed suscipit leo dui, eu
+                    faucibus turpis blandit vel. Nullam gravida elementum. </p> -->
+            </div>
+            <!-- <div class="col-md-8 d-none d-sm-block">
+                <img src="/static/image/exhibition.jpg" class="img-fluid rounded" alt="" />
+            </div> -->
+        </div>
+    </div>
+</section>
+<section class="bg-light p-5">
+    <div class="list-group">
+        <div class="list-group-item list-group-item-action bg-dark text-light">
+            <div class="row d-flex align-items-center ">
+                <div class="col-sm-4 col-md-3">
+                </div>
+                <div class="col-sm-4 col-md-2">
+                    <span class="text-warning">Name</span>
+                </div>
+                <div class="col-sm-4 col-md-2">
+                    <span class="text-warning">Order ID</span>
+                </div>
+                <div class="col-sm-4 col-md-2">
+                    <span class="text-warning">No. of Tickets</span>
+                </div>
+                <div class="col-sm-4 col-md-3">
+                    <span class="text-warning">Date Booked</span>
+                </div>
+            </div>
+        </div>
+        {% for order in orders %}
+        <div class="list-group-item list-group-item-action">
+            <div class="row d-flex align-items-center">
+                <div class="col-md-3 d-none d-md-block">
+                    <img src="{{order.event.image}}" alt="" class="img-fluid rounded">
+                </div>
+                <div class="col-sm-4 col-md-2">
+                    <p>{{order.event.name}}</p>
+                </div>
+                <div class="col-sm-4 col-md-2">
+                    {{order.id}}
+                </div>
+                <div class="col-sm-4 col-md-2">
+                    {{order.count}}
+                </div>
+                <div class="col-sm-4 col-md-3">
+                    {{order.created_at.strftime('%Y-%m-%d %H:%M')}}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+{% endblock %}
