@@ -1,4 +1,3 @@
-import os
 from flask import Flask, render_template
 from flask_bootstrap import Bootstrap
 from flask_sqlalchemy import SQLAlchemy
@@ -6,9 +5,9 @@ from flask_login import LoginManager
 
 db=SQLAlchemy()
 app=Flask(__name__)
+
 def create_app():
     
-
     #we use this utility module to display forms quickly
     bootstrap = Bootstrap(app)
 
@@ -20,8 +19,7 @@ def create_app():
     app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
     #Configue and initialise DB
-    dir = os.path.abspath(os.path.dirname(__file__))
-    app.config['SQLALCHEMY_DATABASE_URI']='sqlite:///' + os.path.join(dir,'events.sqlite')
+    app.config['SQLALCHEMY_DATABASE_URI']='sqlite:///events.sqlite'
     db.init_app(app)
     
     #initialize the login manager
