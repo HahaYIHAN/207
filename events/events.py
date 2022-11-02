@@ -19,19 +19,19 @@ def show(id):
     return render_template('events/show.html', event=event, booking=booking, form=cform)
 
 
-@bp.route('/search')
-def list():
-    if 'search' in request.args and request.args['search']:
-        key = "%" + request.args['search'] + '%'
-        events = Event.query.filter(
-            Event.description.like(key) | Event.name.like(key)).all()
-        return render_template('events/list.html', events=events, title=f"Search : {request.args['search']}")
-    if 'category' in request.args and request.args['category']:
-        events = Event.query.filter(
-            Event.category == request.args['category']).all()
-        return render_template('events/list.html', events=events, title=f"Category-{request.args['category']}")
-    else:
-        return redirect(url_for('main.index'))
+# @bp.route('/search')
+# def list():
+#     if 'search' in request.args and request.args['search']:
+#         key = "%" + request.args['search'] + '%'
+#         events = Event.query.filter(
+#             Event.description.like(key) | Event.name.like(key)).all()
+#         return render_template('events/list.html', events=events, title=f"Search : {request.args['search']}")
+#     if 'category' in request.args and request.args['category']:
+#         events = Event.query.filter(
+#             Event.category == request.args['category']).all()
+#         return render_template('events/list.html', events=events, title=f"Category-{request.args['category']}")
+#     else:
+#         return redirect(url_for('main.index'))
 
 
 @bp.route('booking/<id>',  methods=['POST'])
