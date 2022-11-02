@@ -40,7 +40,8 @@ def create_app():
     app.register_blueprint(events.bp)
     from . import auth
     app.register_blueprint(auth.bp)
-
+    from .import bookings
+    app.register_blueprint(bookings.bp)
     return app
 
 

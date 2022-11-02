@@ -33,8 +33,13 @@ def show(id):
 #     else:
 #         return redirect(url_for('main.index'))
 
+@bp.route('/list')
+@login_required
+def list():
+    events = Event.query.filter_by(user=current_user.id)
+    return render_template('events/list.html', events=events)
 
-@bp.route('booking/<id>',  methods=['POST'])
+@bp.route('/booking/<id>',  methods=['GET', 'POST'])
 def booking(id):
     event = Event.query.filter_by(id=id).first()
     # create the comment form
@@ -42,8 +47,7 @@ def booking(id):
     if booking.validate_on_submit():
         count = booking.count.data
         if event.tickets < count:
-            flash('Not enough tickets', 'danger')
-            return redirect(url_for('event.show', id=event.id))
+            return redirect(url_for('event.show', id=event.id, enough=False))
         else:
             event.tickets = event.tickets - count
             order = Order(
@@ -55,8 +59,6 @@ def booking(id):
             db.session.add(event)
             # commit to the database
             db.session.commit()
-            flash('Order has been made', 'success')
-        return redirect(url_for('main.index'))
     return redirect(url_for('event.show', id=event.id))
 
 
@@ -92,6 +94,7 @@ def create():
 
 
 @bp.route('/update/<int:id>', methods=['GET', 'POST'])
+@login_required
 def update(id):
     event = Event.query.filter_by(id=id).first()
     if event.user != current_user.id:
@@ -164,6 +167,7 @@ def comment(event):
 
 
 @bp.route('/delete/<event_id>', methods=['GET'])
+@login_required
 def delete(event_id):
     event = Event.query.filter_by(id=event_id).first()
     if event.user != current_user.id:

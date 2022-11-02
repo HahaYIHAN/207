@@ -27,10 +27,10 @@
                   {% if current_user.is_authenticated %}
 
                   <li class="nav-item">
-                     <a class="nav-link disabled text-muted" href="#">Bookings</a>
+                     <a class="nav-link" href="{{ url_for('bookings.show') }}">Bookings</a>
                   </li>
                   <li class="nav-item">
-                     <a class="nav-link disabled text-muted" href="#">Events</a>
+                     <a class="nav-link" href="{{ url_for('event.list')}}">My Events</a>
                   </li>
                   <li class="nav-item">
                      <a class="nav-link" href="{{ url_for('auth.logout') }}">Log Out</a>
