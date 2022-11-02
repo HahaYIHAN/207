@@ -49,7 +49,7 @@
             {%for event in exhibition%}
             <div class="col-lg-6 col-md-6">
                <div class="card my-1 h-100">
-                  <img src="img/exhibition.jpg" class="card-img-top" alt="">
+                  <img src="{{event.image}}" class="card-img-top" alt="">
                   <div class="card-body text-dark">
                      <h5 class="card-title">{{event.name}} <span
                            class="badge bg-warning text-dark">{{event.status}}</span></h5>
@@ -68,7 +68,7 @@
             {%for event in networking%}
             <div class="col-lg-6 col-md-6">
                <div class="card my-1 h-100">
-                  <img src="img/exhibition.jpg" class="card-img-top" alt="">
+                  <img src="{{event.image}}" class="card-img-top" alt="">
                   <div class="card-body text-dark">
                      <h5 class="card-title">{{event.name}} <span
                            class="badge bg-warning text-dark">{{event.status}}</span></h5>
@@ -86,7 +86,7 @@
             {%for event in recreation%}
             <div class="col-lg-6 col-md-6">
                <div class="card my-1 h-100">
-                  <img src="img/exhibition.jpg" class="card-img-top" alt="">
+                  <img src="{{event.image}}" class="card-img-top" alt="">
                   <div class="card-body text-dark">
                      <h5 class="card-title">{{event.name}} <span
                            class="badge bg-warning text-dark">{{event.status}}</span></h5>

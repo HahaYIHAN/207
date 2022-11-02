@@ -5,12 +5,12 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 
 db=SQLAlchemy()
+app=Flask(__name__)
+
 
 def create_app():
-    app=Flask(__name__)
-
     #we use this utility module to display forms quickly
-    bootstrap = Bootstrap(app)
+    Bootstrap(app)
 
     #A secret key for the session object
     app.secret_key='somerandomvalue'
