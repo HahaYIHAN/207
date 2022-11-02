@@ -28,9 +28,9 @@
 <section class="bg-light p-5">
    <div class="container">
       <h3>Search For Conferences</h3>
-      <form method="GET" action="/events/search">
+      <form method="GET" action="{{ url_for('main.search')}}">
          <div class="input-group mb-3">
-            <input type="text" class="form-control" name="search" placeholder="Enter Conference Details">
+            <input type="text" class="form-control" name="search" placeholder="Enter details">
             <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Search</button>
          </div>
       </form>

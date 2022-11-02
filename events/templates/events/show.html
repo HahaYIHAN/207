@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% import "bootstrap/wtf.html" as wtf %}
+{% import "bootstrap/form.html" as wtf %}
 
 {% block content %}
 
@@ -46,7 +46,7 @@
       </div>
       {% endfor %}
     </div>
-    {{wtf.quick_form(form,"/events/{0}/comment".format(event.id))}}
+    {{form.render_form(form,"/events/{0}/comment".format(event.id))}}
   </div>
 </section>
 
