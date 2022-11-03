@@ -25,6 +25,7 @@
                <li class="nav-item">
                   <a class="nav-link" href="{{ url_for('event.create') }}">Event Creation</a>
                </li>
+               {% if current_user.is_authenticated %}
 
                   <li class="nav-item">
                      <a class="nav-link" href="{{ url_for('bookings.show') }}">Bookings</a>
