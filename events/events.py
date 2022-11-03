@@ -19,22 +19,27 @@ def show(id):
     return render_template('events/show.html', event=event, booking=booking, form=cform)
 
 
-@bp.route('/search')
+# @bp.route('/search')
+# def list():
+#     if 'search' in request.args and request.args['search']:
+#         key = "%" + request.args['search'] + '%'
+#         events = Event.query.filter(
+#             Event.description.like(key) | Event.name.like(key)).all()
+#         return render_template('events/list.html', events=events, title=f"Search : {request.args['search']}")
+#     if 'category' in request.args and request.args['category']:
+#         events = Event.query.filter(
+#             Event.category == request.args['category']).all()
+#         return render_template('events/list.html', events=events, title=f"Category-{request.args['category']}")
+#     else:
+#         return redirect(url_for('main.index'))
+
+@bp.route('/list')
+@login_required
 def list():
-    if 'search' in request.args and request.args['search']:
-        key = "%" + request.args['search'] + '%'
-        events = Event.query.filter(
-            Event.description.like(key) | Event.name.like(key)).all()
-        return render_template('events/list.html', events=events, title=f"Search : {request.args['search']}")
-    if 'category' in request.args and request.args['category']:
-        events = Event.query.filter(
-            Event.category == request.args['category']).all()
-        return render_template('events/list.html', events=events, title=f"Category-{request.args['category']}")
-    else:
-        return redirect(url_for('main.index'))
+    events = Event.query.filter_by(user=current_user.id)
+    return render_template('events/list.html', events=events)
 
-
-@bp.route('booking/<id>',  methods=['POST'])
+@bp.route('/booking/<id>',  methods=['GET', 'POST'])
 def booking(id):
     event = Event.query.filter_by(id=id).first()
     # create the comment form
@@ -56,7 +61,6 @@ def booking(id):
             # commit to the database
             db.session.commit()
             flash('Order has been made', 'success')
-        return redirect(url_for('main.index'))
     return redirect(url_for('event.show', id=event.id))
 
 
@@ -92,6 +96,7 @@ def create():
 
 
 @bp.route('/update/<int:id>', methods=['GET', 'POST'])
+@login_required
 def update(id):
     event = Event.query.filter_by(id=id).first()
     if event.user != current_user.id:
@@ -164,6 +169,7 @@ def comment(event):
 
 
 @bp.route('/delete/<event_id>', methods=['GET'])
+@login_required
 def delete(event_id):
     event = Event.query.filter_by(id=event_id).first()
     if event.user != current_user.id:

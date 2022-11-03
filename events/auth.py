@@ -3,7 +3,7 @@ from .forms import LoginForm, RegisterForm
 # new imports:
 from flask_login import login_user, login_required, logout_user, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
-from .models import Order, User
+from .models import User
 from . import db
 
 # create a blueprint
@@ -64,15 +64,15 @@ def login():
     return render_template('user.html', form=login_form, heading='Login')
 
 
-@bp.route('/history', methods=['GET'])
-@login_required
-def history():
-    orders = Order.query.filter_by(user_id=current_user.id).all()
-    return render_template('history.html', orders=orders)
+# @bp.route('/history', methods=['GET'])
+# @login_required
+# def history():
+#     orders = Order.query.filter_by(user_id=current_user.id).all()
+#     return render_template('history.html', orders=orders)
 
 
 @bp.route('/logout')
 @login_required
 def logout():
     logout_user()
-    return 'You have been logged out'
+    return redirect(url_for('main.index'))

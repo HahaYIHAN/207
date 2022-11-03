@@ -1,5 +1,4 @@
-import os
-from flask import Flask
+from flask import Flask, render_template
 from flask_bootstrap import Bootstrap
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
@@ -7,8 +6,8 @@ from flask_login import LoginManager
 db=SQLAlchemy()
 app=Flask(__name__)
 
-
 def create_app():
+    
     #we use this utility module to display forms quickly
     Bootstrap(app)
 
@@ -20,8 +19,7 @@ def create_app():
     app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
     #Configue and initialise DB
-    dir = os.path.abspath(os.path.dirname(__file__))
-    app.config['SQLALCHEMY_DATABASE_URI']='sqlite:///' + os.path.join(dir,'events.sqlite')
+    app.config['SQLALCHEMY_DATABASE_URI']='sqlite:///events.sqlite'
     db.init_app(app)
     
     #initialize the login manager
@@ -42,6 +40,15 @@ def create_app():
     app.register_blueprint(events.bp)
     from . import auth
     app.register_blueprint(auth.bp)
-
+    from .import bookings
+    app.register_blueprint(bookings.bp)
     return app
 
+
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('404.html'), 404
+
+@app.errorhandler(500)
+def internal_server_errors(e):
+    return render_template('500.html'), 500

@@ -13,15 +13,26 @@
         <p class="lead my-3">Status: {{event.status}} </p>
         <p class="lead my-3">Tickets Left: {{event.tickets}} </p>
         <p class="lead my-3">Price : ${{event.price}} </p>
-        {% if event.tickets == 0%}
+
+        {% if not current_user.is_authenticated %}
+        <h5>Log in to buy tickets</h5>
+        {% else %}
+        {% if event.user==current_user.id %}
+        <a type="button" href="/events/update/{{event.id}}" class="btn btn-secondary">Edit</a>
+        {% else %}
+        {% if event.tickets == 0 %}
         <button type="button" disabled class="btn btn-warning">Booked out</button>
         {% else %}
         <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal"
           class="btn btn-warning">Book</button>
+        {% with messages = get_flashed_messages() %}
+        {% for message in messages %}
+        <div class="alert">{{ message }}</div>
+        {% endfor %}
+        {% endwith %}
         {% endif %}
-        {% if event.user==current_user.id %}
-        <a type="button" href="/events/update/{{event.id}}" class="btn btn-secondary">Edit</a>
-        {%endif%}
+        {% endif %}
+        {% endif %}
       </div>
       <div class="col-md-8 d-none d-sm-block">
         <img src="{{event.image}}" class="img-fluid rounded" alt="" />
@@ -29,6 +40,7 @@
     </div>
   </div>
 </section>
+
 
 <section class="bg-light p-5">
   <div class="container">
@@ -46,7 +58,11 @@
       </div>
       {% endfor %}
     </div>
+    {% if not current_user.is_authenticated %}
+    <p>Log in to mommet</p>
+    {% else %}
     {{wtf.render_form(form,"/events/{0}/comment".format(event.id))}}
+    {% endif %}
   </div>
 </section>
 

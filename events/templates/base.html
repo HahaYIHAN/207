@@ -12,7 +12,7 @@
 <body>
    <nav class="navbar navbar-expand-md bg-dark navbar-dark">
       <div class="container-fluid">
-         <a class="navbar-brand" href="{{ url_for('main.index') }}">Conference Manager</a>
+         <a class="navbar-brand" href="/">Conference Manager</a>
          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -26,39 +26,31 @@
                   <a class="nav-link" href="{{ url_for('event.create') }}">Event Creation</a>
                </li>
 
-               {% if current_user.is_authenticated %}
-               <li class="nav-item">
-                  <a class="nav-link disabled text-muted" href="#">Welcome {{current_user.name}}</a>
-               </li>
-               <li class="nav-item">
-                  <a class="nav-link" href="{{ url_for('auth.logout') }}">Log Out</a>
-               </li>
-               {% else %}
-               <li class="nav-item">
-                  <a class="nav-link" href="{{ url_for('auth.register') }}">Register</a>
-               </li>
-               <li class="nav-item">
-                  <a class="nav-link" href="{{ url_for('auth.login') }}">Log In</a>
-               </li>
-               {% endif %}
-            </ul>
+                  <li class="nav-item">
+                     <a class="nav-link" href="{{ url_for('bookings.show') }}">Bookings</a>
+                  </li>
+                  <li class="nav-item">
+                     <a class="nav-link" href="{{ url_for('event.list')}}">My Events</a>
+                  </li>
+                  <li class="nav-item">
+                     <a class="nav-link" href="{{ url_for('auth.logout') }}">Log Out</a>
+                  </li>
+                  {% else %}
+                  <li class="nav-item">
+                     <a class="nav-link" href="{{ url_for('auth.register') }}">Register</a>
+                  </li>
+                  <li class="nav-item">
+                     <a class="nav-link" href="{{ url_for('auth.login') }}">Log In</a>
+                  </li>
+                  {% endif %}
+               </ul>
+            </div>
          </div>
-      </div>
-   </nav>
-   <div>
-      {% with messages = get_flashed_messages(with_categories=true) %}
-      {% if messages %}
-      {% for category, message in messages %}
-      <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
-         <strong> {{ message }}</strong>
-         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-      </div>
-      {% endfor %}
-      {% endif %}
-      {% endwith %}
-   </div>
-   {% block header %}
-   {% endblock %}
+      </nav>
+
+      {% block header %}
+      {% endblock %}
+   </header>
 
 
 
