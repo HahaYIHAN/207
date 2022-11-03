@@ -25,9 +25,15 @@
         {% else %}
         <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal"
           class="btn btn-warning">Book</button>
-        {% if not enough %}
-        <p>Not enough tickets</p>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <ul class=flashes>
+          {% for message in messages %}
+          <li>{{ message }}</li>
+          {% endfor %}
+        </ul>
         {% endif %}
+        {% endwith %}
         {% endif %}
         {% endif %}
         {% endif %}

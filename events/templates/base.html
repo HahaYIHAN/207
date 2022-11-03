@@ -22,6 +22,9 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                   <li class="nav-item">
+                     <a class="nav-link" href="{{ url_for('main.index') }}">Home</a>
+                  </li>
+                  <li class="nav-item">
                      <a class="nav-link" href="{{ url_for('event.create') }}">Event Creation</a>
                   </li>
                   {% if current_user.is_authenticated %}
@@ -47,18 +50,7 @@
             </div>
          </div>
       </nav>
-      <!-- <div>
-      {% with messages = get_flashed_messages(with_categories=true) %}
-      {% if messages %}
-      {% for category, message in messages %}
-      <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
-         <strong> {{ message }}</strong>
-         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-      </div>
-      {% endfor %}
-      {% endif %}
-      {% endwith %}
-      </div> -->
+
       {% block header %}
       {% endblock %}
    </header>

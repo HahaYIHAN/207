@@ -47,7 +47,8 @@ def booking(id):
     if booking.validate_on_submit():
         count = booking.count.data
         if event.tickets < count:
-            return redirect(url_for('event.show', id=event.id, enough=False))
+            flash('Not enough tickets', 'danger')
+            return redirect(url_for('event.show', id=event.id))
         else:
             event.tickets = event.tickets - count
             order = Order(
@@ -59,6 +60,7 @@ def booking(id):
             db.session.add(event)
             # commit to the database
             db.session.commit()
+            flash('Order has been made', 'success')
     return redirect(url_for('event.show', id=event.id))
 
 
